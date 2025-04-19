@@ -1,0 +1,32 @@
+name: Exchange Rate Monitor
+
+on:
+  schedule:
+    - cron: "0 4,14 * * *" # Every day at 4AM and 2PM UTC
+  workflow_dispatch:
+
+jobs:
+  check-rate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: "npm" # Enable npm caching for faster builds
+
+      - name: Install dependencies
+        run: npm ci # Using npm ci for more reliable builds
+
+      - name: Run rate monitor
+        run: node monitor.js
+        env:
+          EXCHANGE_API: ${{ secrets.EXCHANGE_API }}
+          LIMIT: ${{ secrets.LIMIT }}
+          SMS_RECIPIENT: ${{ secrets.SMS_RECIPIENT }}
+          ESMS_USERNAME: ${{ secrets.ESMS_USERNAME }}
+          ESMS_PASSWORD: ${{ secrets.ESMS_PASSWORD }}
