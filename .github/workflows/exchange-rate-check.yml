@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: "0 4,14 * * *" # Every day at 4AM and 2PM UTC
   workflow_dispatch:
+    inputs:
+      limit:
+        description: "Rate limit threshold (e.g. 294.50)"
+        required: false
+        type: string
 
 jobs:
   check-rate:
@@ -26,7 +31,7 @@ jobs:
         run: node monitor.js
         env:
           EXCHANGE_API: ${{ secrets.EXCHANGE_API }}
-          LIMIT: ${{ secrets.LIMIT }}
+          LIMIT: ${{ github.event.inputs.limit || vars.EXCHANGE_RATE_LIMIT }}
           SMS_RECIPIENT: ${{ secrets.SMS_RECIPIENT }}
           ESMS_USERNAME: ${{ secrets.ESMS_USERNAME }}
           ESMS_PASSWORD: ${{ secrets.ESMS_PASSWORD }}
