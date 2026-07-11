@@ -1,3 +1,6 @@
+# Local cache (exchange rate notifications, etc.)
+.cache/
+
 # Logs
 logs
 *.log
