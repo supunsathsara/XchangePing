@@ -1,17 +1,21 @@
 {
   "name": "xchangeping",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "1.1.0",
+  "description": "Monitors USD/LKR exchange rates and sends SMS alerts",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node monitor.js",
+    "dev": "node --watch monitor.js"
   },
-  "keywords": [],
+  "keywords": [
+    "exchange-rate",
+    "sms-alert",
+    "lkr",
+    "usd"
+  ],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
-    "axios": "^1.8.4",
     "dotenv": "^16.5.0"
   }
 }
